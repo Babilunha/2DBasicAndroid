@@ -8,18 +8,32 @@ public class PlayerMovement : MonoBehaviour
 {
     public new Rigidbody2D rigidbody;
 
+    public new Joystick joystick;
+    public  CircleCollider2D collider2D;
+
+    public LayerMask ground;
+
+
     
     public PlayerAnimationController playerAnimationController;
 
     public float runSpeed = 200f;
     public float jumpForce = 100f;
-    bool jump = false;
+    bool isJumping = false;
     float horizontal = 0f;
     private bool isFacingRight = true;
 
-    [SerializeField] private GroundCheck groundCheck;
+    
+    private void Start()
+    {
+        collider2D = GetComponent<CircleCollider2D>();
+    }
+    private void Update()
+    {
 
 
+        calculateDirectionAndSpeed();
+    }
     private void FixedUpdate()
     {
         PlayAnimation();
@@ -27,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
         rigidbody.velocity = new Vector2(horizontal * runSpeed, rigidbody.velocity.y);
 
+        
         
 
         // If the input is moving the player right and the player is facing left...
@@ -43,19 +58,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void Left()
-    {
-        horizontal = -1f;
-
-    }
-    public void Right()
-    {
-        horizontal = 1f;
-    }
-    public void Stop()
-    {
-        horizontal = 0f;  
-    }
 
     public void Jump()
     {
@@ -80,7 +82,9 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return groundCheck.isGrounded;
+        float extraHeight = .5f;
+        RaycastHit2D raycastHit = Physics2D.BoxCast(collider2D.bounds.center,new Vector2(3,3) , 0f,  Vector2.down, extraHeight, ground); //in the new vector first value is horizontal, second - vertical
+        return raycastHit.collider != null ;
     }
 
 
@@ -88,16 +92,35 @@ public class PlayerMovement : MonoBehaviour
     private void PlayAnimation()
     {
         playerAnimationController.setSpeed(horizontal);
-        playerAnimationController.Jump(jump);
+        playerAnimationController.Jump(isJumping);
 
         if (IsGrounded())
         {
-            jump = false;
+            isJumping = false;
         }
         else
         {
-            jump = true;
+            isJumping = true;
+            //Debug.Log("jumping is true");
         }
     }
 
+    void calculateDirectionAndSpeed()
+    {
+        float horizontalIntegerValue = 0;
+        if (joystick.Horizontal > 0)
+        {
+            horizontalIntegerValue = 1;
+        }
+        else if (joystick.Horizontal < 0)
+        {
+            horizontalIntegerValue = -1;
+        }
+        else if (joystick.Horizontal == 0)
+        {
+            horizontalIntegerValue = 0;
+        }
+
+        horizontal = horizontalIntegerValue;
+    }
 }
