@@ -18,7 +18,7 @@ public class PlayerCombat : MonoBehaviour
 
     public Button attackButton;
 
-    
+    private Collider2D enemyColllider;
 
     // Update is called once per frame
     //void Update()
@@ -45,7 +45,11 @@ public class PlayerCombat : MonoBehaviour
 
             foreach (Collider2D enemy in hitEnemies)
             {
-                enemy.GetComponent<HeavyEnemy>().TakeDamage(attackDamage);
+                //enemy.GetComponent<HeavyEnemy>().TakeDamage();
+                
+                StartCoroutine("DelayedAttack", 0.4f);
+                enemyColllider = enemy;
+
             }
             nextAttackTime = Time.time + 1f / attackRate;
         }
@@ -55,5 +59,12 @@ public class PlayerCombat : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+   private IEnumerator DelayedAttack()
+    {
+        yield return new WaitForSeconds(0.4f); //Count is the amount of time in seconds that you want to wait.
+        enemyColllider.GetComponent<HeavyEnemy>().TakeDamage();
+        yield return null;
     }
 }

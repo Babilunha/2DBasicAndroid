@@ -10,13 +10,10 @@ public class HeavyEnemyAnimator : MonoBehaviour
     public void TakeDamage()
     {
 
-        Invoke("TakeDamageDelayed", .4f);
-    }
-
-    private void TakeDamageDelayed()
-    {
         animator.SetTrigger("TakeDamage");
     }
+
+  
 
  
 
