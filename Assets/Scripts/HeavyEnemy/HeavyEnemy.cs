@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class HeavyEnemy : MonoBehaviour
 
     public BoxCollider2D deathCollider;
     public BoxCollider2D aliveCollider;
+
+
     
     // Start is called before the first frame update
     void Start()
@@ -40,6 +43,7 @@ public class HeavyEnemy : MonoBehaviour
         //GetComponent<Collider2D>().enabled = false;
         aliveCollider.enabled = false;
         deathCollider.enabled = true;
+     
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
         animator.Die();
         
