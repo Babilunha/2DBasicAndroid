@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,20 +22,17 @@ public class PlayerCombat : MonoBehaviour
 
     public PlayerMovement playerMovement;
     private Collider2D enemyColllider;
+    public int currentHealth;
+    public int maxHealth;
 
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    if(Time.time >= nextAttackTime)
-    //    {
-    //        if(attackButton.OnPointerDown(Attack()))
-    //        {
-    //            Attack();
-    //            nextAttackTime = Time.time + 1f / attackRate;
-    //        }
-            
-    //    }
-    //}
+    private void Start() {
+
+        currentHealth = maxHealth;
+
+    }
+    
+       
+
 
     public void Attack()
     {
@@ -49,10 +47,10 @@ public class PlayerCombat : MonoBehaviour
 
             foreach (Collider2D enemy in hitEnemies)
             {
-                //enemy.GetComponent<HeavyEnemy>().TakeDamage();
-                
-                StartCoroutine("DelayedAttack", 0.4f);
                 enemyColllider = enemy;
+                Debug.Log("enemy -40" + enemy.name);
+                StartCoroutine("DelayedAttack", 0.4f);
+                
 
             }
             nextAttackTime = Time.time + 1f / attackRate;
@@ -67,9 +65,28 @@ public class PlayerCombat : MonoBehaviour
 
    private IEnumerator DelayedAttack()
     {
+        
         yield return new WaitForSeconds(0.4f); //Count is the amount of time in seconds that you want to wait.
         enemyColllider.GetComponent<HeavyEnemy>().TakeDamage();
         yield return null;
+    }
+
+    public void TakeDamage()
+    {
+        currentHealth -= 40;
+        controller.TakeDamage();
+
+        if (currentHealth <= 0)
+        {
+
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+
+        controller.Die();
     }
 
     private void Update()

@@ -21,4 +21,9 @@ public class HeavyEnemyAnimator : MonoBehaviour
     {
         animator.SetBool("isDead", true);
     }
+
+    internal void Attack()
+    {
+        animator.SetTrigger("Attack");
+    }
 }

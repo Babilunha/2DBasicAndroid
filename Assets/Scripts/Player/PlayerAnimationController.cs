@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,5 +23,13 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetTrigger("Attack");
     }
 
-   
+    internal void TakeDamage()
+    {
+        animator.SetTrigger("TakeDamage");
+    }
+
+    internal void Die()
+    {
+        animator.SetBool("isDead", true);
+    }
 }
