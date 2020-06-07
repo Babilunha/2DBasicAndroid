@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class HeavyEnemy : MonoBehaviour
 {
+    public GameObject deadbody;
+
     public HeavyEnemyAnimator animator;
     public int maxHealth = 100;
     public int currentHealth;
@@ -61,8 +63,12 @@ public class HeavyEnemy : MonoBehaviour
      
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
         animator.Die();
+        
         heavyEnemy.enabled = false;
         enemyMovement.enabled = false;
+        Instantiate(deadbody, transform);
+        Destroy(this);
+
 
 
 

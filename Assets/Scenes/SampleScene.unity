@@ -2973,7 +2973,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114526880}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -3030,6 +3030,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db76aeca7ff13d448df5c14d55d81ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deadbody: {fileID: 6889908444033636312, guid: 47ed4c35503625f42aa554ed25b4ee9a,
+    type: 3}
   animator: {fileID: 114526891}
   maxHealth: 100
   currentHealth: 0

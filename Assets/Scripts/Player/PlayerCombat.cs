@@ -43,16 +43,18 @@ public class PlayerCombat : MonoBehaviour
 
             
 
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+            Collider2D hitEnemies = Physics2D.OverlapCircle(attackPoint.position, attackRange, enemyLayers);
 
-            foreach (Collider2D enemy in hitEnemies)
+            if(hitEnemies != null)
             {
-                enemyColllider = enemy;
-                Debug.Log("enemy -40" + enemy.name);
+                enemyColllider = hitEnemies;
+                Debug.Log("enemy -40" + hitEnemies.name);
                 StartCoroutine("DelayedAttack", 0.4f);
+            }
+                
                 
 
-            }
+            
             nextAttackTime = Time.time + 1f / attackRate;
         }
         
