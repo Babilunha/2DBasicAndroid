@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float runSpeed = 200f;
     public float jumpForce = 100f;
     bool isJumping = false;
-    float horizontal = 0f;
+    public float horizontal = 0f;
     private bool isFacingRight = true;
 
     
@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         float extraHeight = .5f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(collider2D.bounds.center,new Vector2(3,3) , 0f,  Vector2.down, extraHeight, ground); //in the new vector first value is horizontal, second - vertical
+        RaycastHit2D raycastHit = Physics2D.BoxCast(collider2D.bounds.center,new Vector2(2,3) , 0f,  Vector2.down, extraHeight, ground); //in the new vector first value is horizontal, second - vertical
         return raycastHit.collider != null ;
     }
 

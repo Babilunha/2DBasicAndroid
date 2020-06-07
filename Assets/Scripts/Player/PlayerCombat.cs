@@ -13,11 +13,13 @@ public class PlayerCombat : MonoBehaviour
 
     public int attackDamage = 20;
     public float attackRange = .5f;
+    public float runAttackRange = 5f;
+    public float idleAttackRange = 3.75f;
     public float attackRate = 2f;
     private float nextAttackTime = 0f;
 
-    public Button attackButton;
 
+    public PlayerMovement playerMovement;
     private Collider2D enemyColllider;
 
     // Update is called once per frame
@@ -40,6 +42,8 @@ public class PlayerCombat : MonoBehaviour
         {
             
             controller.Attack(); //animation
+
+            
 
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
@@ -66,5 +70,17 @@ public class PlayerCombat : MonoBehaviour
         yield return new WaitForSeconds(0.4f); //Count is the amount of time in seconds that you want to wait.
         enemyColllider.GetComponent<HeavyEnemy>().TakeDamage();
         yield return null;
+    }
+
+    private void Update()
+    {
+        if (Mathf.Abs(playerMovement.horizontal) > 0.01)
+        {
+            attackRange = runAttackRange;
+        }
+        else
+        {
+            attackRange = idleAttackRange;
+        }
     }
 }
