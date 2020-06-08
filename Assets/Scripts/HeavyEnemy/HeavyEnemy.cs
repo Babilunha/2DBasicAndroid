@@ -27,7 +27,7 @@ public class HeavyEnemy : MonoBehaviour
     private Collider2D playerCollider;
 
     public HeavyEnemy heavyEnemy;
-    public EnemyMovement enemyMovement;
+    public EnemyAI enemyAI;
 
 
 
@@ -63,9 +63,8 @@ public class HeavyEnemy : MonoBehaviour
      
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
         animator.Die();
-        
+        enemyAI.enabled = false;
         heavyEnemy.enabled = false;
-        enemyMovement.enabled = false;
         Instantiate(deadbody, transform);
         Destroy(this);
 

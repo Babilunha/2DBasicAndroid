@@ -26,4 +26,9 @@ public class HeavyEnemyAnimator : MonoBehaviour
     {
         animator.SetTrigger("Attack");
     }
+
+    public void Run(float speed)
+    {
+        animator.SetFloat("Speed", speed);
+    }
 }

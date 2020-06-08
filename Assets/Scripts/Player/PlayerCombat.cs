@@ -48,7 +48,7 @@ public class PlayerCombat : MonoBehaviour
             if(hitEnemies != null)
             {
                 enemyColllider = hitEnemies;
-                Debug.Log("enemy -40" + hitEnemies.name);
+                //Debug.Log("enemy -40" + hitEnemies.name);
                 StartCoroutine("DelayedAttack", 0.4f);
             }
                 
@@ -69,7 +69,7 @@ public class PlayerCombat : MonoBehaviour
     {
         
         yield return new WaitForSeconds(0.4f); //Count is the amount of time in seconds that you want to wait.
-        enemyColllider.GetComponent<HeavyEnemy>().TakeDamage();
+        enemyColllider.GetComponent<EnemyAI>().TakeDamage();
         yield return null;
     }
 
