@@ -46,6 +46,7 @@ public class EnemyAI : MonoBehaviour
     public Transform attackPoint;
     private Collider2D enemyColllider;
 
+    public PlayerAudio audio;
     private void Update()
     {
         if (deathInt == 1 && attacking == false)
@@ -162,7 +163,17 @@ public class EnemyAI : MonoBehaviour
     {
         if (deathInt == 1)
         {
+            
             currentHealth -= 40;
+
+            if (currentHealth <= 0)
+            {
+                audio.Play("die");
+            } else
+            {
+                audio.Play("hurt");
+            }
+
             animator.TakeDamage();
             runInt = 0;
             currentSpeed = 0;

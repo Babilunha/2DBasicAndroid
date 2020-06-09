@@ -27,6 +27,8 @@ public class PlayerCombat : MonoBehaviour
 
     public PlayerAudio audio;
 
+    
+
     private void Start() {
 
         currentHealth = maxHealth;
@@ -93,6 +95,7 @@ public class PlayerCombat : MonoBehaviour
     public void TakeDamage()
     {
         currentHealth -= 40;
+        
         controller.TakeDamage();
         PlaySound("hurt1", "hurt2");
 
@@ -120,4 +123,6 @@ public class PlayerCombat : MonoBehaviour
             attackRange = idleAttackRange;
         }
     }
+
+
 }
