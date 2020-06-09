@@ -25,6 +25,8 @@ public class PlayerCombat : MonoBehaviour
     public int currentHealth;
     public int maxHealth;
 
+    public PlayerAudio audio;
+
     private void Start() {
 
         currentHealth = maxHealth;
@@ -41,7 +43,8 @@ public class PlayerCombat : MonoBehaviour
             
             controller.Attack(); //animation
 
-            
+            PlaySound("hit1", "hit2");
+
 
             Collider2D hitEnemies = Physics2D.OverlapCircle(attackPoint.position, attackRange, enemyLayers);
 
@@ -58,6 +61,20 @@ public class PlayerCombat : MonoBehaviour
             nextAttackTime = Time.time + 1f / attackRate;
         }
         
+    }
+
+    private void PlaySound(string s1, string s2)
+    {
+        int random = UnityEngine.Random.Range(1, 3);
+        if (random == 1)
+        {
+            audio.Play(s1);
+        }
+        else
+        {
+            audio.Play(s2);
+
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -77,6 +94,7 @@ public class PlayerCombat : MonoBehaviour
     {
         currentHealth -= 40;
         controller.TakeDamage();
+        PlaySound("hurt1", "hurt2");
 
         if (currentHealth <= 0)
         {

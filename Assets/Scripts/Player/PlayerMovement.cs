@@ -23,6 +23,15 @@ public class PlayerMovement : MonoBehaviour
     public float horizontal = 0f;
     private bool isFacingRight = true;
 
+    //Audio
+    public PlayerAudio audio;
+
+
+
+
+    //jumping sound
+    int jumpInt = 0;
+
     
     private void Start()
     {
@@ -33,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         calculateDirectionAndSpeed();
+        JumpSound();
     }
     private void FixedUpdate()
     {
@@ -64,7 +74,8 @@ public class PlayerMovement : MonoBehaviour
         if (IsGrounded())
         {
             rigidbody.velocity = Vector2.up * jumpForce;
-            
+            PlaySound("jump1", "jump2");
+
         }
         
     }
@@ -122,5 +133,35 @@ public class PlayerMovement : MonoBehaviour
         }
 
         horizontal = horizontalIntegerValue;
+    }
+
+    void JumpSound()
+    {
+        if(isJumping == true)
+        {
+            jumpInt = 1;
+        }
+
+        if(isJumping == false && jumpInt == 1)
+        {
+
+            audio.Play("FallSound");
+            jumpInt = 0;
+
+        }
+    }
+
+    private void PlaySound(string s1, string s2)
+    {
+        int random = UnityEngine.Random.Range(1, 3);
+        if (random == 1)
+        {
+            audio.Play(s1);
+        }
+        else
+        {
+            audio.Play(s2);
+
+        }
     }
 }
