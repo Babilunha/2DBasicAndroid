@@ -280,7 +280,7 @@ MonoBehaviour:
   sounds:
   - name: FallSound
     clip: {fileID: 8300000, guid: 671ba1c743508a349837023f39066edc, type: 3}
-    volume: 0.4
+    volume: 0.7
     pitch: 0.5
     source: {fileID: 0}
   - name: hurt1
